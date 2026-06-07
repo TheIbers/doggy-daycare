@@ -13,5 +13,5 @@ def get_vaccine_data(document: UploadFile = File(...)):
         return {"message": "Error uploading document"}
 
     if data:
-        return data.text
+        return data
     return {"message": "No response from the agent"}
