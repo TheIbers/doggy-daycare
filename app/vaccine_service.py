@@ -32,13 +32,18 @@ def upload_document(document: UploadFile):
         data = document.file.read()
         response = client.models.generate_content(
             model="gemini-flash-latest",
-        contents=[
-            types.Part.from_bytes(
-                data=data,
-                mime_type='application/pdf',
-            ),
-            prompt
-        ]
+            contents=[
+                types.Part(
+                    text=prompt
+                ),
+                types.Part.from_bytes(
+                    data=data,
+                    mime_type='application/pdf',
+                ),
+            ],
+            generation_config=types.GenerationConfig(
+                response_mime_type="application/json"
+            )
         )
         return response
     except Exception as e:
