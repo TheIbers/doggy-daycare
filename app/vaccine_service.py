@@ -1,3 +1,4 @@
+import json
 import os
 import requests
 from dotenv import load_dotenv
@@ -41,11 +42,9 @@ def upload_document(document: UploadFile):
                     mime_type='application/pdf',
                 ),
             ],
-            config={
-                "response_format": {"text": {"mime_type": "application/json"}},
-            },
+            config={"response_mime_type": "application/json"},
         )
-        return response
+        return json.loads(response.text)
     except Exception as e:
         print(e)
         return None
