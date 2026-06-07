@@ -41,9 +41,9 @@ def upload_document(document: UploadFile):
                     mime_type='application/pdf',
                 ),
             ],
-            generation_config=types.GenerationConfig(
-                response_mime_type="application/json"
-            )
+            config={
+                "response_format": {"text": {"mime_type": "application/json"}},
+            },
         )
         return response
     except Exception as e:
