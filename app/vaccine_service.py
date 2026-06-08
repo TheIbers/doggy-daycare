@@ -10,6 +10,23 @@ from fastapi import UploadFile
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
+class Vaccine(BaseModel):
+    name: str
+    date: str
+    status: str
+    expiration_date: str
+    dose: str
+    manufacturer: str
+
+class VaccineData(BaseModel):
+    name: str
+    veterinarian: str
+    address: str
+    phone: str
+    email: str
+    gender: str
+    vaccines: list[Vaccine]
+
 prompt = '''
 Collect and return in a JSON format the following information from this document:
 - Name of the dog
@@ -42,7 +59,7 @@ def upload_document(document: UploadFile):
                     mime_type='application/pdf',
                 ),
             ],
-            config={"response_mime_type": "application/json"},
+            config={"response_mime_type": "application/json", "response_schema": VaccineData},
         )
         return json.loads(response.text)
     except Exception as e:
