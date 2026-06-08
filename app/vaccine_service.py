@@ -2,10 +2,11 @@ import json
 import os
 import requests
 from dotenv import load_dotenv
+from fastapi import UploadFile
 from google import genai
 from google.genai import types
+from pydantic import BaseModel
 import httpx
-from fastapi import UploadFile
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))

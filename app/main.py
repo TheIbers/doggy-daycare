@@ -1,6 +1,18 @@
+from pathlib import Path
+
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
 from app.vaccine_service import upload_document
+
 app = FastAPI()
+STATIC_DIR = Path(__file__).parent / "static"
+
+
+@app.get("/", response_class=HTMLResponse)
+def index():
+    return (STATIC_DIR / "index.html").read_text(encoding="utf-8")
+
 
 @app.post("/vaccine")
 def get_vaccine_data(document: UploadFile = File(...)):
