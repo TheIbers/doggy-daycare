@@ -43,6 +43,8 @@ Collect and return in a JSON format the following information from this document
 - Vaccine dose
 - Vaccine manufacturer
 
+The document may be in a PDF, JPG, or PNG format.
+
 Do not attempt to infer any other information from any other source, only include any information that is explicitly stated in the document.
 '''
 
@@ -57,7 +59,7 @@ def upload_document(document: UploadFile):
                 ),
                 types.Part.from_bytes(
                     data=data,
-                    mime_type='application/pdf',
+                    mime_type=document.content_type,
                 ),
             ],
             config={"response_mime_type": "application/json", "response_schema": VaccineData},
