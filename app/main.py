@@ -30,7 +30,7 @@ def get_vaccine_data(document: UploadFile = File(...)):
     return {"message": "No response from the agent"}
 
 @app.post("/submit")
-def submit_vaccine(document: File(...), data: VaccineData):
+def submit_vaccine(data: VaccineData):
     try:
         upload_to_sheet(data)
     except Exception as e:
