@@ -3,7 +3,8 @@ from pathlib import Path
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import HTMLResponse
 
-from app.vaccine_service import upload_document
+from app.vaccine_service import upload_document, VaccineData
+from app.sheets_uploader import upload_to_sheet
 
 app = FastAPI()
 STATIC_DIR = Path(__file__).parent / "static"
@@ -27,3 +28,11 @@ def get_vaccine_data(document: UploadFile = File(...)):
     if data:
         return data
     return {"message": "No response from the agent"}
+
+@app.post("/submit")
+def submit_vaccine(document: File(...), data: VaccineData):
+    try:
+        upload_to_sheet(data)
+    except Exception as e:
+        print(e)
+        return {"message": "Error appending to sheet"}

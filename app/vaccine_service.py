@@ -15,6 +15,7 @@ class Vaccine(BaseModel):
     name: str
     date: str
     status: str
+    due_date: str
     expiration_date: str
     dose: str
     manufacturer: str
@@ -26,11 +27,13 @@ class VaccineData(BaseModel):
     phone: str
     email: str
     gender: str
+    ownerName: str
     vaccines: list[Vaccine]
 
 prompt = '''
-Collect and return in a JSON format the following information from this document:
+Collect and return in a JSON format the following information from this document if available:
 - Name of the dog
+- Name of owner
 - Veterinarian or clinic name
 - Veterinarian or clinic contact address
 - Veterinarian or clinic contact phone number
@@ -39,6 +42,7 @@ Collect and return in a JSON format the following information from this document
 - Vaccine name
 - Vaccine date
 - Vaccine status
+- Vaccine due date
 - Vaccine expiration date
 - Vaccine dose
 - Vaccine manufacturer

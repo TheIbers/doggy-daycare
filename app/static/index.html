@@ -114,6 +114,8 @@
     </table>
   </div>
 
+  <button id="submit-btn" type="button" disabled>Submit Results</button>
+
   <script>
     const fileInput = document.getElementById("document-input");
     const uploadBtn = document.getElementById("upload-btn");
@@ -123,6 +125,7 @@
     const infoTableBody = document.querySelector("#info-table tbody");
     const vaccinesHead = document.getElementById("vaccines-head");
     const vaccinesBody = document.getElementById("vaccines-body");
+    const submitBtn = document.getElementById("submit-btn");
 
     const VACCINE_KEYS = ["vaccines", "Vaccines"];
 
@@ -164,11 +167,15 @@
       }
     });
 
+    submitBtn.addEventListener("click", async () => {
+
+    });
+
     function formatCell(value) {
       if (value === null || value === undefined || value === "") {
         return '<td class="null-value">—</td>';
       }
-      return `<td>${escapeHtml(String(value))}</td>`;
+      return `<td contenteditable="true">${escapeHtml(String(value))}</td>`;
     }
 
     function escapeHtml(text) {
