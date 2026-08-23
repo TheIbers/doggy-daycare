@@ -55,6 +55,19 @@
       font-size: 0.95rem;
       min-height: 1.25rem;
     }
+    #submit-btn {
+      background: #2563eb;
+      color: #fff;
+    }
+    #submit-btn:hover:not(:disabled) { background: #1d4ed8; }
+    #submit-btn:disabled { background: #93b4f5; cursor: not-allowed; }
+    #file-name { color: #555; font-size: 0.95rem; }
+    #status {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      min-height: 1.25rem;
+    }
+
     #status.error { color: #b91c1c; }
     #status.loading { color: #555; }
     #results { display: none; }
@@ -171,7 +184,12 @@
     });
 
     submitBtn.addEventListener("click", async () => {
-      const response = await fetch("/submit", { method: "POST", body: vaccine_data });
+      try {
+        const response = await fetch("/submit", {method: "POST", body: vaccine_data});
+      } catch (err) {
+        console.log(err);
+      }
+
     });
 
     function formatCell(value) {
