@@ -141,6 +141,7 @@
     const submitBtn = document.getElementById("submit-btn");
 
     let vaccine_data = null;
+    let info_data = null;
 
     const VACCINE_KEYS = ["vaccines", "Vaccines"];
 
@@ -171,7 +172,6 @@
         }
 
         renderResults(data);
-        vaccine_data = data;
         status.className = "";
         status.textContent = "";
         results.classList.add("visible");
@@ -213,24 +213,24 @@
     }
 
     function renderResults(data) {
-      const vaccines = getVaccines(data);
-      const infoEntries = Object.entries(data).filter(([key]) => !VACCINE_KEYS.includes(key));
+      vaccine_data = getVaccines(data);
+      info_data = Object.entries(data).filter(([key]) => !VACCINE_KEYS.includes(key));
 
-      infoTableBody.innerHTML = infoEntries.map(([key, value]) =>
+      infoTableBody.innerHTML = info_data.map(([key, value]) =>
         `<tr><th>${escapeHtml(key)}</th>${formatCell(value)}</tr>`
       ).join("");
 
       vaccinesHead.innerHTML = "";
       vaccinesBody.innerHTML = "";
 
-      if (vaccines.length === 0) {
+      if (vaccine_data.length === 0) {
         vaccinesHead.innerHTML = "<tr><th>No vaccines found</th></tr>";
         return;
       }
 
-      const columns = [...new Set(vaccines.flatMap((v) => Object.keys(v)))];
+      const columns = [...new Set(vaccine_data.flatMap((v) => Object.keys(v)))];
       vaccinesHead.innerHTML = `<tr>${columns.map((c) => `<th>${escapeHtml(c)}</th>`).join("")}</tr>`;
-      vaccinesBody.innerHTML = vaccines.map((vaccine) =>
+      vaccinesBody.innerHTML = vaccine_data.map((vaccine) =>
         `<tr>${columns.map((col) => formatCell(vaccine[col])).join("")}</tr>`
       ).join("");
     }
