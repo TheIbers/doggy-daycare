@@ -114,7 +114,7 @@
     </table>
   </div>
 
-  <button id="submit-btn" type="button" disabled>Submit Results</button>
+  <button id="submit-btn" type="button">Submit Results</button>
 
   <script>
     const fileInput = document.getElementById("document-input");
@@ -173,7 +173,7 @@
 
     function formatCell(value) {
       if (value === null || value === undefined || value === "") {
-        return '<td class="null-value">—</td>';
+        return '<td contenteditable="true">—</td>';
       }
       return `<td contenteditable="true">${escapeHtml(String(value))}</td>`;
     }
