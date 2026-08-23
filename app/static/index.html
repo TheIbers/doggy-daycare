@@ -127,6 +127,8 @@
     const vaccinesBody = document.getElementById("vaccines-body");
     const submitBtn = document.getElementById("submit-btn");
 
+    let vaccine_data = null;
+
     const VACCINE_KEYS = ["vaccines", "Vaccines"];
 
     fileInput.addEventListener("change", () => {
@@ -156,6 +158,7 @@
         }
 
         renderResults(data);
+        vaccine_data = data;
         status.className = "";
         status.textContent = "";
         results.classList.add("visible");
@@ -168,7 +171,7 @@
     });
 
     submitBtn.addEventListener("click", async () => {
-
+      const response = await fetch("/submit", { method: "POST", body: vaccine_data });
     });
 
     function formatCell(value) {
